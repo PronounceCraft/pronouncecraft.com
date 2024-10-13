@@ -104,10 +104,10 @@ def format_output(words_list, ipa_list, max_words_per_line=20):
 
 # Load the Excel file once when the app starts
 # df = load_excel(r'C:\Users\Windows\Documents\IPA_TESTING_nonbreakingspace.xlsx')
-excel_url = 'https://github.com/PronounceCraft/pronouncecraft.github.io/IPA_TESTING_nonbreakingspace.xlsx'
+file_path = 'pronouncecraft.github.io/IPA_TESTING_nonbreakingspace.xlsx'
 
 # Read the Excel file into a DataFrame
-df = pd.read_excel(excel_url)
+df = pd.read_excel(file_path)
 
 @app.route('/')
 def index():
