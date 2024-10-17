@@ -1,0 +1,36 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the site in the jekyll/builder container
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+
+
+# Use the official Python image as the base image
+FROM python:3.8
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the application files into the working directory
+COPY . /app
+
+# Install the application dependencies
+RUN pip install -r requirements.txt
+
+# Define the entry point for the container
+CMD ["flask", "run", "--host=0.0.0.0"]        
